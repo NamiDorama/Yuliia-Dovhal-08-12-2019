@@ -1,101 +1,25 @@
-const BASE_URL = "http://dataservice.accuweather.com";
-const API_KEY = "xWB8K6ZlIV36i0F47cO3vdepKhJdQtHM";
+import { mock, fiveMock, weatherMock } from './mockData';
 
-const mock = [
-  {
-    Version: 1,
-    Key: "226396",
-    Type: "City",
-    Rank: 10,
-    LocalizedName: "Tokyo",
-    Country: { ID: "JP", LocalizedName: "Japan" },
-    AdministrativeArea: { ID: "13", LocalizedName: "Tokyo" }
-  },
-  {
-    Version: 1,
-    Key: "106770",
-    Type: "City",
-    Rank: 11,
-    LocalizedName: "Taiyuan",
-    Country: { ID: "CN", LocalizedName: "China" },
-    AdministrativeArea: { ID: "SX", LocalizedName: "Shanxi" }
-  },
-  {
-    Version: 1,
-    Key: "106780",
-    Type: "City",
-    Rank: 11,
-    LocalizedName: "Tianjin",
-    Country: { ID: "CN", LocalizedName: "China" },
-    AdministrativeArea: { ID: "TJ", LocalizedName: "Tianjin" }
-  },
-  {
-    Version: 1,
-    Key: "58491",
-    Type: "City",
-    Rank: 13,
-    LocalizedName: "Tongren",
-    Country: { ID: "CN", LocalizedName: "China" },
-    AdministrativeArea: { ID: "GZ", LocalizedName: "Guizhou" }
-  },
-  {
-    Version: 1,
-    Key: "102324",
-    Type: "City",
-    Rank: 13,
-    LocalizedName: "Tangshan",
-    Country: { ID: "CN", LocalizedName: "China" },
-    AdministrativeArea: { ID: "HE", LocalizedName: "Hebei" }
-  },
-  {
-    Version: 1,
-    Key: "59573",
-    Type: "City",
-    Rank: 13,
-    LocalizedName: "Taizhou",
-    Country: { ID: "CN", LocalizedName: "China" },
-    AdministrativeArea: { ID: "JS", LocalizedName: "Jiangsu" }
-  },
-  {
-    Version: 1,
-    Key: "60198",
-    Type: "City",
-    Rank: 13,
-    LocalizedName: "Tongliao",
-    Country: { ID: "CN", LocalizedName: "China" },
-    AdministrativeArea: { ID: "NM", LocalizedName: "Inner Mongolia" }
-  },
-  {
-    Version: 1,
-    Key: "106571",
-    Type: "City",
-    Rank: 13,
-    LocalizedName: "Tai'an",
-    Country: { ID: "CN", LocalizedName: "China" },
-    AdministrativeArea: { ID: "SD", LocalizedName: "Shandong" }
-  },
-  {
-    Version: 1,
-    Key: "58055",
-    Type: "City",
-    Rank: 15,
-    LocalizedName: "Tianshui",
-    Country: { ID: "CN", LocalizedName: "China" },
-    AdministrativeArea: { ID: "GS", LocalizedName: "Gansu" }
-  },
-  {
-    Version: 1,
-    Key: "2333653",
-    Type: "City",
-    Rank: 15,
-    LocalizedName: "Taizhou",
-    Country: { ID: "CN", LocalizedName: "China" },
-    AdministrativeArea: { ID: "ZJ", LocalizedName: "Zhejiang" }
-  }
-];
+const BASE_URL = 'http://dataservice.accuweather.com';
+const API_KEY = 'xWB8K6ZlIV36i0F47cO3vdepKhJdQtHM';
+
 export const getAutocompleteFetch = params => {
   // return fetch(
-  //   `${BASE_URL}/locations/v1/cities/autocomplete?apikey=${API_KEY}&q=${params}&language=en-us`
+  //   `${BASE_URL}/locations/v1/cities/autocomplete?apikey=${API_KEY}&q=${params}`,
   // ).then(res => res.json());
   return mock;
+};
+
+export const getWeatherFetch = locationKey => {
+  // return fetch(
+  //   `${BASE_URL}/currentconditions/v1/${locationKey}?apikey=${API_KEY}`,
+  // ).then(res => res.json());
+  return weatherMock;
+};
+
+export const getFiveDaysWeatherFetch = locationKey => {
+  // return fetch(
+  //   `${BASE_URL}/forecasts/v1/daily/5day/${locationKey}?apikey=${API_KEY}`,
+  // ).then(res => res.json());
+  return fiveMock;
 };

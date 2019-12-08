@@ -1,7 +1,7 @@
-import React from "react";
-import { Switch, Route, BrowserRouter } from "react-router-dom";
-import "./App.css";
-import { Favorites, MainPage } from "./containers";
+import React from 'react';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import './App.css';
+import { Favorites, MainPage } from './pages';
 
 const App = () => (
   <BrowserRouter>

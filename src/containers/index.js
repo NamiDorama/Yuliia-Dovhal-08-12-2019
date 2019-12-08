@@ -1,2 +1,2 @@
-export * from "./MainPage";
-export * from "./Favorites";
+export * from './SearchCityWeather';
+export * from './WeatherBlock';
