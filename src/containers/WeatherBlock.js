@@ -4,8 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { getWeather, getFiveDaysWeather } from '../store/actions';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import { Favorites, WeatherCards } from '../components';
 import Card from '@material-ui/core/Card';
 
 const defaultCity = {
@@ -20,7 +19,9 @@ const defaultCity = {
 
 const style = {
   root: {
-    padding: '20px',
+    padding: '15px',
+    width: '90%',
+    margin: '20px auto',
   },
 };
 
@@ -31,6 +32,7 @@ const WeatherBlockComp = props => {
     getWeather,
     currentCity,
     getFiveDaysWeather,
+    fiveDaysWeather,
   } = props;
   const [favorite, setFavorite] = useState(false);
 
@@ -45,64 +47,36 @@ const WeatherBlockComp = props => {
   };
 
   return (
-    <Grid
-      container
-      justify="center"
-      alignItems="center"
-      className={classes.root}
-    >
-      <Grid item xs={9}>
-        <Typography component="h6" variant="h6">
-          {currentCity.LocalizedName}
-        </Typography>
-        <Typography component="p" variant="subtitle1">
-          {weather.Temperature && weather.Temperature.Metric.Value}
-          {weather.Temperature && weather.Temperature.Metric.Unit}
-        </Typography>
-      </Grid>
+    <Card className={classes.root}>
+      <Grid container justify="center" alignItems="center">
+        <Grid item sm={8} xs={6}>
+          <Typography component="h6" variant="h6">
+            {currentCity.LocalizedName}
+          </Typography>
+          <Typography component="p" variant="subtitle1">
+            {weather.Temperature && weather.Temperature.Imperial.Value}
+            {weather.Temperature && weather.Temperature.Imperial.Unit}
+          </Typography>
+        </Grid>
 
-      <Grid item xs={3}>
-        <IconButton
-          color={favorite ? 'secondary' : 'default'}
-          onClick={favoritesHandler}
-        >
-          <FavoriteIcon />
-        </IconButton>
-        <Typography component="span" variant="subtitle1">
-          Favorites
-        </Typography>
-      </Grid>
+        <Favorites favorite={favorite} favoritesHandler={favoritesHandler} />
 
-      <Grid item xs={12}>
-        <Typography component="p" variant="h5" align="center">
-          {weather.WeatherText}
-        </Typography>
-      </Grid>
+        <Grid item xs={12}>
+          <Typography component="p" variant="h5" align="center">
+            {weather.WeatherText}
+          </Typography>
+        </Grid>
 
-      <Grid container justify="center" alignItems="center" spacing={2}>
-        <Grid item xs={2}>
-          <Card>xs</Card>
-        </Grid>
-        <Grid item xs={2}>
-          <Card>xs</Card>
-        </Grid>
-        <Grid item xs={2}>
-          <Card>xs</Card>
-        </Grid>
-        <Grid item xs={2}>
-          <Card>xs</Card>
-        </Grid>
-        <Grid item xs={2}>
-          <Card>xs</Card>
-        </Grid>
+        <WeatherCards weatherArr={fiveDaysWeather} />
       </Grid>
-    </Grid>
+    </Card>
   );
 };
 
 const mapStateToProps = state => ({
   weather: state.weather,
   currentCity: state.currentCity,
+  fiveDaysWeather: state.fiveDaysWeather,
 });
 
 const mapDispatchToProps = {

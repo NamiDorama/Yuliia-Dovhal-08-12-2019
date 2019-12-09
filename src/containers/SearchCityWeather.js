@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { getAutocomplete, getWeather } from '../store/actions';
+import {
+  getAutocomplete,
+  getFiveDaysWeather,
+  getWeather,
+} from '../store/actions';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -18,7 +22,7 @@ const styles = {
     marginRight: '5px',
   },
   margin: {
-    marginLeft: '10px',
+    margin: '10px 0 10px 10px',
   },
   width: {
     width: '300px',
@@ -26,11 +30,18 @@ const styles = {
 };
 
 const SearchFieldComp = props => {
-  const { classes, options, getAutocomplete, getWeather } = props;
+  const {
+    classes,
+    options,
+    getAutocomplete,
+    getWeather,
+    getFiveDaysWeather,
+  } = props;
   const [inputValue, setInputValue] = useState('');
   const [selectedOption, setSelectedOption] = useState({});
 
   const handleSearch = ({ target: { value } }) => {
+    setSelectedOption({});
     setInputValue(value);
   };
 
@@ -51,10 +62,11 @@ const SearchFieldComp = props => {
     </Grid>
   );
 
-  const getOptionLabel = option => {
+  const getOptionLabel = option => option.LocalizedName;
+
+  const selectOptionHandler = ({}, option) => {
     setInputValue(option.LocalizedName);
     setSelectedOption(option);
-    return option.LocalizedName;
   };
 
   const renderInput = params => (
@@ -69,6 +81,7 @@ const SearchFieldComp = props => {
 
   const searchWeatherHandler = () => {
     getWeather(selectedOption);
+    getFiveDaysWeather(selectedOption.Key);
   };
 
   return (
@@ -86,6 +99,8 @@ const SearchFieldComp = props => {
         getOptionLabel={getOptionLabel}
         renderInput={renderInput}
         renderOption={getOptions}
+        inputValue={inputValue}
+        onChange={selectOptionHandler}
       />
       <Button
         variant="contained"
@@ -93,6 +108,7 @@ const SearchFieldComp = props => {
         color="primary"
         className={classes.margin}
         onClick={searchWeatherHandler}
+        disabled={!Object.keys(selectedOption).length}
       >
         Get weather
       </Button>
@@ -107,6 +123,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   getAutocomplete,
   getWeather,
+  getFiveDaysWeather,
 };
 
 export const SearchCityWeather = connect(

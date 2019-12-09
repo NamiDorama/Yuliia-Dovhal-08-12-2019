@@ -20,8 +20,7 @@ export function* getAutocompleteSaga({ params }) {
     const options = params ? yield getAutocompleteFetch(params) : [];
     yield put(getAutocompleteSuccess(options));
   } catch (err) {
-    console.error(err);
-    yield put(setError(err));
+    yield put(setError('Sorry, something went wrong in autocomplete'));
   }
 }
 
@@ -31,8 +30,7 @@ export function* getWeatherSaga({ selectedOption }) {
     yield put(getWeatherSuccess(weather));
     yield put(setCity(selectedOption));
   } catch (err) {
-    console.log(err);
-    yield put(setError(err));
+    yield put(setError('Sorry, something went wrong in getting weather'));
   }
 }
 
@@ -41,8 +39,9 @@ export function* getFiveDaysWeatherSaga({ key }) {
     const weather = yield getFiveDaysWeatherFetch(key);
     yield put(getFiveDaysWeatherSuccess(weather));
   } catch (err) {
-    console.error(err);
-    yield put(setError(err));
+    yield put(
+      setError('Sorry, something went wrong in getting weather for 5 days'),
+    );
   }
 }
 
