@@ -13,20 +13,20 @@ const initialState = {
   fiveDaysWeather: [],
   currentCity: {},
   favoritesWeather: {},
-  error: null,
+  error: '',
 };
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_AUTOCOMPLETE_SUCCESS:
-      return { ...state, options: action.options, error: null };
+      return { ...state, options: action.options, error: '' };
     case GET_WEATHER_SUCCESS:
-      return { ...state, weather: action.weather[0], error: null };
+      return { ...state, weather: action.weather[0], error: '' };
     case GET_FIVE_DAYS_WEATHER_SUCCESS:
       return {
         ...state,
         fiveDaysWeather: action.weather.DailyForecasts,
-        error: null,
+        error: '',
       };
     case GET_FAVOURITES_WEATHER_SUCCESS:
       return { ...state, favoritesWeather: action.favoritesWeather };

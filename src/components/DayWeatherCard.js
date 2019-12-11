@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
@@ -14,6 +15,7 @@ const style = {
     justifyContent: 'center',
   },
 };
+
 const DayWeatherCardComp = ({
   weather: { header, body, footer, iconNum },
   classes,
@@ -42,3 +44,18 @@ const DayWeatherCardComp = ({
 };
 
 export const DayWeatherCard = withStyles(style)(DayWeatherCardComp);
+
+DayWeatherCardComp.propTypes = {
+  classes: PropTypes.object.isRequired,
+  header: PropTypes.string,
+  body: PropTypes.string,
+  footer: PropTypes.string,
+  iconNum: PropTypes.oneOf([PropTypes.number, null]),
+};
+
+DayWeatherCardComp.defaultProps = {
+  header: '',
+  body: '',
+  footer: '',
+  iconNum: null,
+};

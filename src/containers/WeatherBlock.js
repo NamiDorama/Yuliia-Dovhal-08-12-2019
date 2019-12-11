@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import { Favorites, WeatherCards, WeatherIcon } from '../components';
-import { getWeather, getFiveDaysWeather } from '../store/actions';
+import { getWeather, getCityByGeolocation } from '../store/actions';
 import { checkIfCitySaved, createWeatherArr } from '../utils/utils';
 
 const defaultCity = {
   Version: 1,
-  Key: '226396',
+  Key: '215854',
   Type: 'City',
-  Rank: 10,
-  LocalizedName: 'Tokyo',
-  Country: { ID: 'JP', LocalizedName: 'Japan' },
-  AdministrativeArea: { ID: '13', LocalizedName: 'Tokyo' },
+  Rank: 31,
+  LocalizedName: 'Tel Aviv',
+  Country: { ID: 'IL', LocalizedName: 'Israel' },
+  AdministrativeArea: { ID: 'TA', LocalizedName: 'Tel Aviv' },
 };
 
 const style = {
   root: {
+    backgroundColor: 'whitesmoke',
     padding: '15px',
     width: '90%',
     margin: '20px auto',
@@ -37,8 +39,9 @@ const WeatherBlockComp = props => {
     weather,
     getWeather,
     currentCity,
-    getFiveDaysWeather,
     fiveDaysWeather,
+    location,
+    getCityByGeolocation,
   } = props;
   const favorites = JSON.parse(window.localStorage.getItem('cities')) || [];
   const ifCitySaved = checkIfCitySaved(favorites, currentCity.Key);
@@ -48,12 +51,16 @@ const WeatherBlockComp = props => {
   useEffect(() => {
     if (Object.keys(currentCity).length) {
       getWeather(currentCity);
-      getFiveDaysWeather(currentCity.Key);
       return;
     }
     getWeather(defaultCity);
-    getFiveDaysWeather(defaultCity.Key);
   }, []);
+
+  useEffect(() => {
+    if (location.latitude && location.longitude) {
+      getCityByGeolocation(location);
+    }
+  }, [location]);
 
   useEffect(() => {
     setFavorite(checkIfCitySaved(favorites, currentCity.Key));
@@ -74,9 +81,11 @@ const WeatherBlockComp = props => {
     <Card className={classes.root}>
       <Grid container justify="center" alignItems="center">
         <Grid item sm={8} xs={6} className={classes.weatherBlock}>
-          <Grid item>
-            <WeatherIcon iconNum={weather.WeatherIcon} />
-          </Grid>
+          {weather.WeatherIcon && (
+            <Grid item>
+              <WeatherIcon iconNum={weather.WeatherIcon} />
+            </Grid>
+          )}
           <Grid item>
             <Typography component="h6" variant="h6">
               {currentCity.LocalizedName}
@@ -110,10 +119,20 @@ const mapStateToProps = ({ weather, currentCity, fiveDaysWeather }) => ({
 
 const mapDispatchToProps = {
   getWeather,
-  getFiveDaysWeather,
+  getCityByGeolocation,
 };
 
 export const WeatherBlock = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(withStyles(style)(WeatherBlockComp));
+
+WeatherBlockComp.propTypes = {
+  classes: PropTypes.object.isRequired,
+  weather: PropTypes.object.isRequired,
+  getWeather: PropTypes.func.isRequired,
+  currentCity: PropTypes.object.isRequired,
+  fiveDaysWeather: PropTypes.arrayOf(PropTypes.object).isRequired,
+  location: PropTypes.object.isRequired,
+  getCityByGeolocation: PropTypes.func.isRequired,
+};

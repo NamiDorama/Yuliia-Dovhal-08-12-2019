@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import { DayWeatherCard } from './index';
 
@@ -19,3 +20,7 @@ export const WeatherCards = ({ weatherArr }) => (
       : null}
   </Grid>
 );
+
+WeatherCards.propTypes = {
+  weatherArr: PropTypes.arrayOf(PropTypes.object).isRequired,
+};

@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  getAutocomplete,
-  getFiveDaysWeather,
-  getWeather,
-} from '../store/actions';
+import { getAutocomplete, getWeather } from '../store/actions';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -30,13 +27,7 @@ const styles = {
 };
 
 const SearchFieldComp = props => {
-  const {
-    classes,
-    options,
-    getAutocomplete,
-    getWeather,
-    getFiveDaysWeather,
-  } = props;
+  const { classes, options, getAutocomplete, getWeather } = props;
   const [inputValue, setInputValue] = useState('');
   const [selectedOption, setSelectedOption] = useState({});
 
@@ -81,7 +72,6 @@ const SearchFieldComp = props => {
 
   const searchWeatherHandler = () => {
     getWeather(selectedOption);
-    getFiveDaysWeather(selectedOption.Key);
     setInputValue('');
     setSelectedOption({});
   };
@@ -125,10 +115,16 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   getAutocomplete,
   getWeather,
-  getFiveDaysWeather,
 };
 
 export const SearchCityWeather = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(withStyles(styles)(SearchFieldComp));
+
+SearchFieldComp.propTypes = {
+  classes: PropTypes.object.isRequired,
+  options: PropTypes.arrayOf(PropTypes.object).isRequired,
+  getAutocomplete: PropTypes.func.isRequired,
+  getWeather: PropTypes.func.isRequired,
+};

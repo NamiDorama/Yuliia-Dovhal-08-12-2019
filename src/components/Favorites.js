@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -17,3 +18,8 @@ export const Favorites = ({ favorite, favoritesHandler }) => (
     </Typography>
   </Grid>
 );
+
+Favorites.propTypes = {
+  favorite: PropTypes.bool.isRequired,
+  favoritesHandler: PropTypes.func.isRequired,
+};

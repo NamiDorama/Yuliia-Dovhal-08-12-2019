@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -50,3 +51,7 @@ const HeaderComp = props => {
 };
 
 export const Header = withStyles(styles)(HeaderComp);
+
+HeaderComp.propTypes = {
+  classes: PropTypes.object.isRequired,
+};

@@ -4,12 +4,11 @@ export const GET_AUTOCOMPLETE_SUCCESS = 'GET_AUTOCOMPLETE_SUCCESS';
 export const GET_WEATHER = 'GET_WEATHER';
 export const GET_WEATHER_SUCCESS = 'GET_WEATHER_SUCCESS';
 
-export const GET_FIVE_DAYS_WEATHER = 'GET_FIVE_DAYS_WEATHER';
-export const GET_FIVE_DAYS_WEATHER_SUCCESS = 'GET_FIVE_DAYS_WEATHER_SUCCESS';
-
 export const GET_FAVOURITES_WEATHER = 'GET_FAVOURITES_WEATHER';
 export const GET_FAVOURITES_WEATHER_SUCCESS = 'GET_FAVOURITES_WEATHER_SUCCESS';
 
+export const GET_CITY_BY_GEOLOCATION = 'GET_CITY_BY_GEOLOCATION';
+export const GET_FIVE_DAYS_WEATHER_SUCCESS = 'GET_FIVE_DAYS_WEATHER_SUCCESS';
 export const SET_CITY = 'SET_CITY';
 export const SET_ERROR = 'SET_ERROR';
 
@@ -28,10 +27,6 @@ export const getWeatherSuccess = weather => ({
   weather,
 });
 
-export const getFiveDaysWeather = key => ({
-  type: GET_FIVE_DAYS_WEATHER,
-  key,
-});
 export const getFiveDaysWeatherSuccess = weather => ({
   type: GET_FIVE_DAYS_WEATHER_SUCCESS,
   weather,
@@ -44,6 +39,11 @@ export const getFavoritesWeather = favorites => ({
 export const getFavoritesWeatherSuccess = favoritesWeather => ({
   type: GET_FAVOURITES_WEATHER_SUCCESS,
   favoritesWeather,
+});
+
+export const getCityByGeolocation = location => ({
+  type: GET_CITY_BY_GEOLOCATION,
+  location,
 });
 
 export const setError = error => ({ type: SET_ERROR, error });

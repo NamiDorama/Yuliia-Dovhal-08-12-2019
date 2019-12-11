@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import sprite from '../css_sprites.png';
@@ -211,3 +212,8 @@ const WeatherIconComp = ({ classes, iconNum }) => (
 );
 
 export const WeatherIcon = withStyles(style)(WeatherIconComp);
+
+WeatherIconComp.propTypes = {
+  classes: PropTypes.object.isRequired,
+  iconNum: PropTypes.number.isRequired,
+};

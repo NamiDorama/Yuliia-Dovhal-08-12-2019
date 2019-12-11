@@ -6,16 +6,17 @@ import {
   getWeatherSuccess,
   setError,
   setCity,
-  GET_FIVE_DAYS_WEATHER,
   getFiveDaysWeatherSuccess,
   GET_FAVOURITES_WEATHER,
   getFavoritesWeatherSuccess,
+  GET_CITY_BY_GEOLOCATION,
 } from './actions';
 import {
   getAutocompleteFetch,
   getWeatherFetch,
   getFiveDaysWeatherFetch,
   getFavoriteWeatherFetch,
+  getCityByGeolocationFetch,
 } from '../api/apiFetch';
 
 export function* getAutocompleteSaga({ params }) {
@@ -30,10 +31,23 @@ export function* getAutocompleteSaga({ params }) {
 export function* getWeatherSaga({ selectedOption }) {
   try {
     const weather = yield getWeatherFetch(selectedOption.Key);
+    const fiveDaysWeather = yield getFiveDaysWeatherFetch(selectedOption.Key);
     yield put(getWeatherSuccess(weather));
+    yield put(getFiveDaysWeatherSuccess(fiveDaysWeather));
     yield put(setCity(selectedOption));
   } catch (err) {
     yield put(setError('Sorry, something went wrong in getting weather'));
+  }
+}
+
+export function* getWeatherByGeolocationSaga({ location }) {
+  try {
+    const city = yield getCityByGeolocationFetch(location);
+    yield getWeatherSaga({ selectedOption: city });
+  } catch (err) {
+    yield put(
+      setError('Sorry, something went wrong in getting weather by geolocation'),
+    );
   }
 }
 
@@ -55,22 +69,11 @@ export function* getFavoritesWeatherSaga({ favorites }) {
   }
 }
 
-export function* getFiveDaysWeatherSaga({ key }) {
-  try {
-    const weather = yield getFiveDaysWeatherFetch(key);
-    yield put(getFiveDaysWeatherSuccess(weather));
-  } catch (err) {
-    yield put(
-      setError('Sorry, something went wrong in getting weather for 5 days'),
-    );
-  }
-}
-
 export function* watchAllSagas() {
   yield all([
     takeEvery(GET_AUTOCOMPLETE, getAutocompleteSaga),
     takeEvery(GET_WEATHER, getWeatherSaga),
     takeEvery(GET_FAVOURITES_WEATHER, getFavoritesWeatherSaga),
-    takeEvery(GET_FIVE_DAYS_WEATHER, getFiveDaysWeatherSaga),
+    takeEvery(GET_CITY_BY_GEOLOCATION, getWeatherByGeolocationSaga),
   ]);
 }

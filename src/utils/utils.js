@@ -35,3 +35,20 @@ export const createWeatherArr = (weatherArr, favourites = false) => {
     footer: `${weather.Temperature.Minimum.Value}${weather.Temperature.Minimum.Unit} / ${weather.Temperature.Maximum.Value}${weather.Temperature.Maximum.Unit}`,
   }));
 };
+
+export const getCurrentLocation = setLocation => {
+  const location = window.navigator && window.navigator.geolocation;
+  if (location) {
+    location.getCurrentPosition(
+      position => {
+        setLocation({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      },
+      () => {
+        setLocation({ latitude: null, longitude: null });
+      },
+    );
+  }
+};
