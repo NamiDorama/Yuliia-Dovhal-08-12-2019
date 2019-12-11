@@ -7,6 +7,9 @@ export const GET_WEATHER_SUCCESS = 'GET_WEATHER_SUCCESS';
 export const GET_FIVE_DAYS_WEATHER = 'GET_FIVE_DAYS_WEATHER';
 export const GET_FIVE_DAYS_WEATHER_SUCCESS = 'GET_FIVE_DAYS_WEATHER_SUCCESS';
 
+export const GET_FAVOURITES_WEATHER = 'GET_FAVOURITES_WEATHER';
+export const GET_FAVOURITES_WEATHER_SUCCESS = 'GET_FAVOURITES_WEATHER_SUCCESS';
+
 export const SET_CITY = 'SET_CITY';
 export const SET_ERROR = 'SET_ERROR';
 
@@ -32,6 +35,15 @@ export const getFiveDaysWeather = key => ({
 export const getFiveDaysWeatherSuccess = weather => ({
   type: GET_FIVE_DAYS_WEATHER_SUCCESS,
   weather,
+});
+
+export const getFavoritesWeather = favorites => ({
+  type: GET_FAVOURITES_WEATHER,
+  favorites,
+});
+export const getFavoritesWeatherSuccess = favoritesWeather => ({
+  type: GET_FAVOURITES_WEATHER_SUCCESS,
+  favoritesWeather,
 });
 
 export const setError = error => ({ type: SET_ERROR, error });

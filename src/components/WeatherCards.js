@@ -1,6 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import { DayWeatherCard } from './DayWeatherCard';
+import { DayWeatherCard } from './index';
 
 export const WeatherCards = ({ weatherArr }) => (
   <Grid
@@ -11,9 +11,11 @@ export const WeatherCards = ({ weatherArr }) => (
     style={{ margin: '40px 0' }}
   >
     {weatherArr.length
-      ? weatherArr.map(weather => (
-          <DayWeatherCard weather={weather} key={weather.EpochDate} />
-        ))
+      ? weatherArr.map(weather =>
+          weather.key ? (
+            <DayWeatherCard weather={weather} key={weather.key} />
+          ) : null,
+        )
       : null}
   </Grid>
 );

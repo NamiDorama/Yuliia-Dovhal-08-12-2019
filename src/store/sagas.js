@@ -8,11 +8,14 @@ import {
   setCity,
   GET_FIVE_DAYS_WEATHER,
   getFiveDaysWeatherSuccess,
+  GET_FAVOURITES_WEATHER,
+  getFavoritesWeatherSuccess,
 } from './actions';
 import {
   getAutocompleteFetch,
   getWeatherFetch,
   getFiveDaysWeatherFetch,
+  getFavoriteWeatherFetch,
 } from '../api/apiFetch';
 
 export function* getAutocompleteSaga({ params }) {
@@ -34,6 +37,24 @@ export function* getWeatherSaga({ selectedOption }) {
   }
 }
 
+export function* getFavoritesWeatherSaga({ favorites }) {
+  try {
+    const weather = yield all(
+      favorites.map(city => getFavoriteWeatherFetch(city.key)),
+    );
+    const favoritesWeather = yield weather.reduce((acc, el) => {
+      return { ...acc, ...el };
+    }, {});
+    yield put(getFavoritesWeatherSuccess(favoritesWeather));
+  } catch (err) {
+    yield put(
+      setError(
+        'Sorry, something went wrong in getting weather for favorites cities',
+      ),
+    );
+  }
+}
+
 export function* getFiveDaysWeatherSaga({ key }) {
   try {
     const weather = yield getFiveDaysWeatherFetch(key);
@@ -49,6 +70,7 @@ export function* watchAllSagas() {
   yield all([
     takeEvery(GET_AUTOCOMPLETE, getAutocompleteSaga),
     takeEvery(GET_WEATHER, getWeatherSaga),
+    takeEvery(GET_FAVOURITES_WEATHER, getFavoritesWeatherSaga),
     takeEvery(GET_FIVE_DAYS_WEATHER, getFiveDaysWeatherSaga),
   ]);
 }

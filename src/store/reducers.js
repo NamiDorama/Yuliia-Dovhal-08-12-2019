@@ -1,10 +1,10 @@
 import {
   GET_AUTOCOMPLETE_SUCCESS,
   GET_FIVE_DAYS_WEATHER_SUCCESS,
-  GET_WEATHER,
   GET_WEATHER_SUCCESS,
   SET_CITY,
   SET_ERROR,
+  GET_FAVOURITES_WEATHER_SUCCESS,
 } from './actions';
 
 const initialState = {
@@ -12,6 +12,7 @@ const initialState = {
   weather: {},
   fiveDaysWeather: [],
   currentCity: {},
+  favoritesWeather: {},
   error: null,
 };
 
@@ -27,6 +28,8 @@ export const reducer = (state = initialState, action) => {
         fiveDaysWeather: action.weather.DailyForecasts,
         error: null,
       };
+    case GET_FAVOURITES_WEATHER_SUCCESS:
+      return { ...state, favoritesWeather: action.favoritesWeather };
     case SET_CITY:
       return { ...state, currentCity: action.city };
     case SET_ERROR:

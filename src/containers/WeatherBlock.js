@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import { getWeather, getFiveDaysWeather } from '../store/actions';
 import Typography from '@material-ui/core/Typography';
-import { Favorites, WeatherCards } from '../components';
 import Card from '@material-ui/core/Card';
+import { Favorites, WeatherCards, WeatherIcon } from '../components';
+import { getWeather, getFiveDaysWeather } from '../store/actions';
+import { checkIfCitySaved, createWeatherArr } from '../utils/utils';
 
 const defaultCity = {
   Version: 1,
@@ -23,6 +24,11 @@ const style = {
     width: '90%',
     margin: '20px auto',
   },
+  weatherBlock: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 };
 
 const WeatherBlockComp = props => {
@@ -34,29 +40,52 @@ const WeatherBlockComp = props => {
     getFiveDaysWeather,
     fiveDaysWeather,
   } = props;
-  const [favorite, setFavorite] = useState(false);
+  const favorites = JSON.parse(window.localStorage.getItem('cities')) || [];
+  const ifCitySaved = checkIfCitySaved(favorites, currentCity.Key);
+  const weatherArr = createWeatherArr(fiveDaysWeather);
+  const [favorite, setFavorite] = useState(ifCitySaved);
 
   useEffect(() => {
+    if (Object.keys(currentCity).length) {
+      getWeather(currentCity);
+      getFiveDaysWeather(currentCity.Key);
+      return;
+    }
     getWeather(defaultCity);
     getFiveDaysWeather(defaultCity.Key);
   }, []);
 
+  useEffect(() => {
+    setFavorite(checkIfCitySaved(favorites, currentCity.Key));
+  }, [currentCity.Key, favorites]);
+
   const favoritesHandler = () => {
-    // TODO: write to localstorage
-    setFavorite(!favorite);
+    setFavorite(!ifCitySaved);
+    const updatedCities = ifCitySaved
+      ? favorites.filter(el => el.key !== currentCity.Key)
+      : [
+          ...favorites,
+          { city: currentCity.LocalizedName, key: currentCity.Key },
+        ];
+    window.localStorage.setItem('cities', JSON.stringify(updatedCities));
   };
 
   return (
     <Card className={classes.root}>
       <Grid container justify="center" alignItems="center">
-        <Grid item sm={8} xs={6}>
-          <Typography component="h6" variant="h6">
-            {currentCity.LocalizedName}
-          </Typography>
-          <Typography component="p" variant="subtitle1">
-            {weather.Temperature && weather.Temperature.Imperial.Value}
-            {weather.Temperature && weather.Temperature.Imperial.Unit}
-          </Typography>
+        <Grid item sm={8} xs={6} className={classes.weatherBlock}>
+          <Grid item>
+            <WeatherIcon iconNum={weather.WeatherIcon} />
+          </Grid>
+          <Grid item>
+            <Typography component="h6" variant="h6">
+              {currentCity.LocalizedName}
+            </Typography>
+            <Typography component="p" variant="subtitle1">
+              {weather.Temperature && weather.Temperature.Metric.Value}
+              {weather.Temperature && weather.Temperature.Metric.Unit}
+            </Typography>
+          </Grid>
         </Grid>
 
         <Favorites favorite={favorite} favoritesHandler={favoritesHandler} />
@@ -67,16 +96,16 @@ const WeatherBlockComp = props => {
           </Typography>
         </Grid>
 
-        <WeatherCards weatherArr={fiveDaysWeather} />
+        <WeatherCards weatherArr={weatherArr} />
       </Grid>
     </Card>
   );
 };
 
-const mapStateToProps = state => ({
-  weather: state.weather,
-  currentCity: state.currentCity,
-  fiveDaysWeather: state.fiveDaysWeather,
+const mapStateToProps = ({ weather, currentCity, fiveDaysWeather }) => ({
+  weather,
+  currentCity,
+  fiveDaysWeather,
 });
 
 const mapDispatchToProps = {

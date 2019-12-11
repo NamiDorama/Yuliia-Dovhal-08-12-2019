@@ -82,6 +82,8 @@ const SearchFieldComp = props => {
   const searchWeatherHandler = () => {
     getWeather(selectedOption);
     getFiveDaysWeather(selectedOption.Key);
+    setInputValue('');
+    setSelectedOption({});
   };
 
   return (

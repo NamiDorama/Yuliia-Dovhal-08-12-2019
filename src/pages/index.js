@@ -1,3 +1,3 @@
-export * from './Favorites';
+export * from './FavoritesPages';
 export * from './MainPage';
 export * from './NotFound';

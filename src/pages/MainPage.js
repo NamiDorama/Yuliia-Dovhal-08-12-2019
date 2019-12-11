@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import { Header } from '../components';
-import { SearchCityWeather, WeatherBlock } from '../containers';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { connect } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import { SearchCityWeather, WeatherBlock } from '../containers';
+import { Header } from '../components';
+import 'react-toastify/dist/ReactToastify.css';
 
 const MainPageComp = ({ error }) => {
-  const notify = (message) => {
+  const notify = message => {
     toast.error(message, {
       position: toast.POSITION.BOTTOM_LEFT,
     });
@@ -15,7 +15,6 @@ const MainPageComp = ({ error }) => {
   useEffect(() => {
     if (error) {
       notify(error);
-
     }
   }, [error]);
   return (
