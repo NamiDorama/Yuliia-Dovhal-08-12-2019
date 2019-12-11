@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/Yuliia-Dovhal-08-12-2019/static/css/main.8ab6f918.chunk.css",
+    "main.js": "/Yuliia-Dovhal-08-12-2019/static/js/main.a3a6aa38.chunk.js",
+    "main.js.map": "/Yuliia-Dovhal-08-12-2019/static/js/main.a3a6aa38.chunk.js.map",
+    "runtime-main.js": "/Yuliia-Dovhal-08-12-2019/static/js/runtime-main.999fbcc8.js",
+    "runtime-main.js.map": "/Yuliia-Dovhal-08-12-2019/static/js/runtime-main.999fbcc8.js.map",
+    "static/css/2.5dbdccff.chunk.css": "/Yuliia-Dovhal-08-12-2019/static/css/2.5dbdccff.chunk.css",
+    "static/js/2.860871b9.chunk.js": "/Yuliia-Dovhal-08-12-2019/static/js/2.860871b9.chunk.js",
+    "static/js/2.860871b9.chunk.js.map": "/Yuliia-Dovhal-08-12-2019/static/js/2.860871b9.chunk.js.map",
+    "index.html": "/Yuliia-Dovhal-08-12-2019/index.html",
+    "precache-manifest.c29743fb44c67b7f3a98993ce0d7dc05.js": "/Yuliia-Dovhal-08-12-2019/precache-manifest.c29743fb44c67b7f3a98993ce0d7dc05.js",
+    "service-worker.js": "/Yuliia-Dovhal-08-12-2019/service-worker.js",
+    "static/css/2.5dbdccff.chunk.css.map": "/Yuliia-Dovhal-08-12-2019/static/css/2.5dbdccff.chunk.css.map",
+    "static/css/main.8ab6f918.chunk.css.map": "/Yuliia-Dovhal-08-12-2019/static/css/main.8ab6f918.chunk.css.map",
+    "static/js/2.860871b9.chunk.js.LICENSE": "/Yuliia-Dovhal-08-12-2019/static/js/2.860871b9.chunk.js.LICENSE",
+    "static/media/css_sprites.png": "/Yuliia-Dovhal-08-12-2019/static/media/css_sprites.062925ff.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.999fbcc8.js",
+    "static/css/2.5dbdccff.chunk.css",
+    "static/js/2.860871b9.chunk.js",
+    "static/css/main.8ab6f918.chunk.css",
+    "static/js/main.a3a6aa38.chunk.js"
+  ]
+}
