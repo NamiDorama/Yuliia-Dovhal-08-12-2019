@@ -1,7 +1,7 @@
 import { request } from './restConfig';
 import { mock, fiveMock, weatherMock } from './mockData';
 
-const BASE_URL = 'http://dataservice.accuweather.com';
+const BASE_URL = 'https://dataservice.accuweather.com';
 const API_KEY = 'xLSpz4alKO638nrASxn4WzH4V2AqqV6y';
 
 export const getAutocompleteFetch = params => {
