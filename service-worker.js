@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Yuliia-Dovhal-08-12-2019/precache-manifest.c29743fb44c67b7f3a98993ce0d7dc05.js"
+  "/Yuliia-Dovhal-08-12-2019/precache-manifest.fec2bae512bdfc7977987481fd653d63.js"
 );
 
 self.addEventListener('message', (event) => {
