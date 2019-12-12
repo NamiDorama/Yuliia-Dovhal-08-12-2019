@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/Yuliia-Dovhal-08-12-2019/static/css/main.8ab6f918.chunk.css",
-    "main.js": "/Yuliia-Dovhal-08-12-2019/static/js/main.88247603.chunk.js",
-    "main.js.map": "/Yuliia-Dovhal-08-12-2019/static/js/main.88247603.chunk.js.map",
+    "main.js": "/Yuliia-Dovhal-08-12-2019/static/js/main.c52ed934.chunk.js",
+    "main.js.map": "/Yuliia-Dovhal-08-12-2019/static/js/main.c52ed934.chunk.js.map",
     "runtime-main.js": "/Yuliia-Dovhal-08-12-2019/static/js/runtime-main.999fbcc8.js",
     "runtime-main.js.map": "/Yuliia-Dovhal-08-12-2019/static/js/runtime-main.999fbcc8.js.map",
     "static/css/2.5dbdccff.chunk.css": "/Yuliia-Dovhal-08-12-2019/static/css/2.5dbdccff.chunk.css",
     "static/js/2.392df9c5.chunk.js": "/Yuliia-Dovhal-08-12-2019/static/js/2.392df9c5.chunk.js",
     "static/js/2.392df9c5.chunk.js.map": "/Yuliia-Dovhal-08-12-2019/static/js/2.392df9c5.chunk.js.map",
     "index.html": "/Yuliia-Dovhal-08-12-2019/index.html",
-    "precache-manifest.0785462e76620454a04946d18d6ab234.js": "/Yuliia-Dovhal-08-12-2019/precache-manifest.0785462e76620454a04946d18d6ab234.js",
+    "precache-manifest.6bff908341d25e8964bf664ecaf4865b.js": "/Yuliia-Dovhal-08-12-2019/precache-manifest.6bff908341d25e8964bf664ecaf4865b.js",
     "service-worker.js": "/Yuliia-Dovhal-08-12-2019/service-worker.js",
     "static/css/2.5dbdccff.chunk.css.map": "/Yuliia-Dovhal-08-12-2019/static/css/2.5dbdccff.chunk.css.map",
     "static/css/main.8ab6f918.chunk.css.map": "/Yuliia-Dovhal-08-12-2019/static/css/main.8ab6f918.chunk.css.map",
@@ -21,6 +21,6 @@
     "static/css/2.5dbdccff.chunk.css",
     "static/js/2.392df9c5.chunk.js",
     "static/css/main.8ab6f918.chunk.css",
-    "static/js/main.88247603.chunk.js"
+    "static/js/main.c52ed934.chunk.js"
   ]
 }
