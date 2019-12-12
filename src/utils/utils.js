@@ -54,5 +54,7 @@ export const getCurrentLocation = (
         getDefaultCityWeather();
       },
     );
+  } else {
+    getDefaultCityWeather();
   }
 };
