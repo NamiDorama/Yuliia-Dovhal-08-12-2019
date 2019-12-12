@@ -6,12 +6,13 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import { Favorites, WeatherCards, WeatherIcon } from '../components';
-import { getWeather, getCityByGeolocation } from '../store/actions';
+import { getWeather, getCityByGeolocation, setMetric } from '../store/actions';
 import {
   checkIfCitySaved,
   createWeatherArr,
   getCurrentLocation,
 } from '../utils/utils';
+import { MetricSwitch } from './index';
 
 const defaultCity = {
   Version: 1,
@@ -45,21 +46,24 @@ const WeatherBlockComp = props => {
     currentCity,
     fiveDaysWeather,
     getCityByGeolocation,
+    metric,
   } = props;
   const favorites = JSON.parse(window.localStorage.getItem('cities')) || [];
   const ifCitySaved = checkIfCitySaved(favorites, currentCity.Key);
+  const metricUnit = metric ? 'Metric' : 'Imperial';
   const weatherArr = createWeatherArr(fiveDaysWeather);
   const [favorite, setFavorite] = useState(ifCitySaved);
 
-  const getDefaultCityWeather = () => getWeather(defaultCity);
+  const getDefaultCityWeather = () =>
+    getWeather({ selectedOption: defaultCity, metric });
 
   useEffect(() => {
     if (Object.keys(currentCity).length) {
-      getWeather(currentCity);
+      getWeather({ selectedOption: currentCity, metric });
       return;
     }
     getCurrentLocation(getCityByGeolocation, getDefaultCityWeather);
-  }, []);
+  }, [metric]);
 
   useEffect(() => {
     setFavorite(checkIfCitySaved(favorites, currentCity.Key));
@@ -90,8 +94,8 @@ const WeatherBlockComp = props => {
               {currentCity.LocalizedName}
             </Typography>
             <Typography component="p" variant="subtitle1">
-              {weather.Temperature && weather.Temperature.Metric.Value}
-              {weather.Temperature && weather.Temperature.Metric.Unit}
+              {weather.Temperature && weather.Temperature[metricUnit].Value}
+              {weather.Temperature && weather.Temperature[metricUnit].Unit}
             </Typography>
           </Grid>
         </Grid>
@@ -105,21 +109,25 @@ const WeatherBlockComp = props => {
         </Grid>
 
         <WeatherCards weatherArr={weatherArr} />
+        <MetricSwitch />
       </Grid>
     </Card>
   );
 };
 
-const mapStateToProps = ({ weather, currentCity, fiveDaysWeather }) => ({
+const mapStateToProps = ({
   weather,
   currentCity,
   fiveDaysWeather,
+  metric,
+}) => ({
+  weather,
+  currentCity,
+  fiveDaysWeather,
+  metric,
 });
 
-const mapDispatchToProps = {
-  getWeather,
-  getCityByGeolocation,
-};
+const mapDispatchToProps = { getWeather, getCityByGeolocation };
 
 export const WeatherBlock = connect(
   mapStateToProps,
@@ -133,4 +141,5 @@ WeatherBlockComp.propTypes = {
   currentCity: PropTypes.object.isRequired,
   fiveDaysWeather: PropTypes.arrayOf(PropTypes.object).isRequired,
   getCityByGeolocation: PropTypes.func.isRequired,
+  metric: PropTypes.bool.isRequired,
 };

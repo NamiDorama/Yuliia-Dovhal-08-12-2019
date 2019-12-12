@@ -13,15 +13,16 @@ export const getWeekDay = date => days[new Date(date).getDay()];
 export const checkIfCitySaved = (favorites, cityKey) =>
   !!favorites.filter(el => el.key === cityKey).length;
 
-export const createWeatherArr = (weatherArr, favourites = false) => {
+export const createWeatherArr = (weatherArr, favourites = false, metric = true) => {
   if (favourites) {
+    const metricUnit = metric ? 'Metric' : 'Imperial';
     return weatherArr.map(saved => {
       const weather = favourites[saved.key];
       return weather
         ? {
             key: saved.key,
             header: saved.city,
-            body: `${weather.Temperature.Metric.Value}${weather.Temperature.Metric.Unit}`,
+            body: `${weather.Temperature[metricUnit].Value}${weather.Temperature[metricUnit].Unit}`,
             footer: weather.WeatherText,
             iconNum: weather.WeatherIcon,
           }

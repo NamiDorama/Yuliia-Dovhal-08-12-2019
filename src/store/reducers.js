@@ -5,6 +5,7 @@ import {
   SET_CITY,
   SET_ERROR,
   GET_FAVOURITES_WEATHER_SUCCESS,
+  SET_METRIC,
 } from './actions';
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   fiveDaysWeather: [],
   currentCity: {},
   favoritesWeather: {},
+  metric: true,
   error: '',
 };
 
@@ -32,6 +34,8 @@ export const reducer = (state = initialState, action) => {
       return { ...state, favoritesWeather: action.favoritesWeather };
     case SET_CITY:
       return { ...state, currentCity: action.city };
+    case SET_METRIC:
+      return { ...state, metric: action.metric };
     case SET_ERROR:
       return { ...state, error: action.error };
     default:

@@ -28,10 +28,13 @@ export function* getAutocompleteSaga({ params }) {
   }
 }
 
-export function* getWeatherSaga({ selectedOption }) {
+export function* getWeatherSaga({ params: { selectedOption, metric } }) {
   try {
     const weather = yield getWeatherFetch(selectedOption.Key);
-    const fiveDaysWeather = yield getFiveDaysWeatherFetch(selectedOption.Key);
+    const fiveDaysWeather = yield getFiveDaysWeatherFetch(
+      selectedOption.Key,
+      metric,
+    );
     yield put(getWeatherSuccess(weather));
     yield put(getFiveDaysWeatherSuccess(fiveDaysWeather));
     yield put(setCity(selectedOption));
@@ -43,7 +46,7 @@ export function* getWeatherSaga({ selectedOption }) {
 export function* getWeatherByGeolocationSaga({ location }) {
   try {
     const city = yield getCityByGeolocationFetch(location);
-    yield getWeatherSaga({ selectedOption: city });
+    yield getWeatherSaga({ params: { selectedOption: city } });
   } catch (err) {
     yield put(
       setError('Sorry, something went wrong in getting weather by geolocation'),

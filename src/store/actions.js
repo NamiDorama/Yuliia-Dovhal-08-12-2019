@@ -9,6 +9,7 @@ export const GET_FAVOURITES_WEATHER_SUCCESS = 'GET_FAVOURITES_WEATHER_SUCCESS';
 
 export const GET_CITY_BY_GEOLOCATION = 'GET_CITY_BY_GEOLOCATION';
 export const GET_FIVE_DAYS_WEATHER_SUCCESS = 'GET_FIVE_DAYS_WEATHER_SUCCESS';
+export const SET_METRIC = 'SET_METRIC';
 export const SET_CITY = 'SET_CITY';
 export const SET_ERROR = 'SET_ERROR';
 
@@ -18,10 +19,7 @@ export const getAutocompleteSuccess = options => ({
   options,
 });
 
-export const getWeather = selectedOption => ({
-  type: GET_WEATHER,
-  selectedOption,
-});
+export const getWeather = params => ({ type: GET_WEATHER, params });
 export const getWeatherSuccess = weather => ({
   type: GET_WEATHER_SUCCESS,
   weather,
@@ -48,3 +46,4 @@ export const getCityByGeolocation = location => ({
 
 export const setError = error => ({ type: SET_ERROR, error });
 export const setCity = city => ({ type: SET_CITY, city });
+export const setMetric = metric => ({ type: SET_METRIC, metric });

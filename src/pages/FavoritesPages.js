@@ -25,6 +25,7 @@ const FavoritesPagesComp = props => {
     classes,
     setCity,
     history: { push },
+    metric,
   } = props;
   const favorites = JSON.parse(window.localStorage.getItem('cities')) || [];
 
@@ -33,7 +34,7 @@ const FavoritesPagesComp = props => {
   }, []);
 
   const weatherArr = Object.keys(favoritesWeather).length
-    ? createWeatherArr(favorites, favoritesWeather)
+    ? createWeatherArr(favorites, favoritesWeather, metric)
     : [];
 
   const getWeatherByClick = weatherKey => {
@@ -64,7 +65,10 @@ const FavoritesPagesComp = props => {
   );
 };
 
-const mapStateToProps = ({ favoritesWeather }) => ({ favoritesWeather });
+const mapStateToProps = ({ favoritesWeather, metric }) => ({
+  favoritesWeather,
+  metric,
+});
 const mapDispatchToProps = { getFavoritesWeather, setCity };
 
 export const FavoritesPages = connect(
@@ -77,6 +81,7 @@ FavoritesPagesComp.propTypes = {
   favoritesWeather: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   push: PropTypes.func,
+  metric: PropTypes.bool.isRequired,
 };
 
 FavoritesPagesComp.defaultProps = {

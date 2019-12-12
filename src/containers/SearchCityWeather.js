@@ -27,7 +27,7 @@ const styles = {
 };
 
 const SearchFieldComp = props => {
-  const { classes, options, getAutocomplete, getWeather } = props;
+  const { classes, options, getAutocomplete, getWeather, metric } = props;
   const [inputValue, setInputValue] = useState('');
   const [selectedOption, setSelectedOption] = useState({});
 
@@ -71,7 +71,7 @@ const SearchFieldComp = props => {
   );
 
   const searchWeatherHandler = () => {
-    getWeather(selectedOption);
+    getWeather({ selectedOption, metric });
     setInputValue('');
     setSelectedOption({});
   };
@@ -108,14 +108,9 @@ const SearchFieldComp = props => {
   );
 };
 
-const mapStateToProps = state => ({
-  options: state.options,
-});
+const mapStateToProps = ({ options, metric }) => ({ options, metric });
 
-const mapDispatchToProps = {
-  getAutocomplete,
-  getWeather,
-};
+const mapDispatchToProps = { getAutocomplete, getWeather };
 
 export const SearchCityWeather = connect(
   mapStateToProps,
@@ -127,4 +122,5 @@ SearchFieldComp.propTypes = {
   options: PropTypes.arrayOf(PropTypes.object).isRequired,
   getAutocomplete: PropTypes.func.isRequired,
   getWeather: PropTypes.func.isRequired,
+  metric: PropTypes.bool.isRequired,
 };
