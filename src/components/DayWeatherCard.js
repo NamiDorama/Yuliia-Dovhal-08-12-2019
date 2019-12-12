@@ -14,14 +14,30 @@ const style = {
     alignItems: 'center',
     justifyContent: 'center',
   },
+  clickable: {
+    cursor: 'pointer',
+  },
 };
 
 const DayWeatherCardComp = ({
   weather: { header, body, footer, iconNum },
   classes,
+  weatherKey,
+  getWeatherByClick,
 }) => {
+  const weatherClickHandler = () => {
+    getWeatherByClick(weatherKey);
+  };
+
   return (
-    <Grid item md={2} sm={4} xs={12}>
+    <Grid
+      item
+      md={2}
+      sm={4}
+      xs={12}
+      onClick={getWeatherByClick ? weatherClickHandler : null}
+      className={getWeatherByClick ? classes.clickable : ''}
+    >
       <Card className={classes.cardItem}>
         {iconNum && <WeatherIcon iconNum={iconNum} />}
         <Typography component="p" align="center" variant="body2">

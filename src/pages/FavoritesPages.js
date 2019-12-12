@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import { Header, WeatherCards } from '../components';
-import { getFavoritesWeather } from '../store/actions';
+import { getFavoritesWeather, setCity } from '../store/actions';
 import { createWeatherArr } from '../utils/utils';
 import { Typography } from '@material-ui/core';
 
@@ -19,7 +19,13 @@ const style = {
 };
 
 const FavoritesPagesComp = props => {
-  const { getFavoritesWeather, favoritesWeather, classes } = props;
+  const {
+    getFavoritesWeather,
+    favoritesWeather,
+    classes,
+    setCity,
+    history: { push },
+  } = props;
   const favorites = JSON.parse(window.localStorage.getItem('cities')) || [];
 
   useEffect(() => {
@@ -30,13 +36,23 @@ const FavoritesPagesComp = props => {
     ? createWeatherArr(favorites, favoritesWeather)
     : [];
 
+  const getWeatherByClick = weatherKey => {
+    const chosen = favorites.find(city => city.key === weatherKey);
+    setCity({ LocalizedName: chosen.city, Key: chosen.key });
+    push('/');
+    console.log('getWeatherByClick', chosen);
+  };
+
   return (
     <>
       <Header />
       <Card className={classes.root}>
         {weatherArr.length ? (
           <Grid container justify="center" alignItems="center">
-            <WeatherCards weatherArr={weatherArr} />
+            <WeatherCards
+              weatherArr={weatherArr}
+              getWeatherByClick={getWeatherByClick}
+            />
           </Grid>
         ) : (
           <Typography align="center" variant="subtitle1">
@@ -49,7 +65,7 @@ const FavoritesPagesComp = props => {
 };
 
 const mapStateToProps = ({ favoritesWeather }) => ({ favoritesWeather });
-const mapDispatchToProps = { getFavoritesWeather };
+const mapDispatchToProps = { getFavoritesWeather, setCity };
 
 export const FavoritesPages = connect(
   mapStateToProps,
@@ -60,4 +76,9 @@ FavoritesPagesComp.propTypes = {
   getFavoritesWeather: PropTypes.func.isRequired,
   favoritesWeather: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
+  push: PropTypes.func,
+};
+
+FavoritesPagesComp.defaultProps = {
+  push: _ => _,
 };

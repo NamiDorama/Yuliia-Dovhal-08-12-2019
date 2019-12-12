@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import { DayWeatherCard } from './index';
 
-export const WeatherCards = ({ weatherArr }) => (
+export const WeatherCards = ({ weatherArr, getWeatherByClick }) => (
   <Grid
     container
     justify="center"
@@ -14,7 +14,12 @@ export const WeatherCards = ({ weatherArr }) => (
     {weatherArr.length
       ? weatherArr.map(weather =>
           weather.key ? (
-            <DayWeatherCard weather={weather} key={weather.key} />
+            <DayWeatherCard
+              weather={weather}
+              key={weather.key}
+              weatherKey={weather.key}
+              getWeatherByClick={getWeatherByClick}
+            />
           ) : null,
         )
       : null}

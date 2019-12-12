@@ -36,18 +36,21 @@ export const createWeatherArr = (weatherArr, favourites = false) => {
   }));
 };
 
-export const getCurrentLocation = setLocation => {
+export const getCurrentLocation = (
+  getCityByGeolocation,
+  getDefaultCityWeather,
+) => {
   const location = window.navigator && window.navigator.geolocation;
   if (location) {
     location.getCurrentPosition(
       position => {
-        setLocation({
+        getCityByGeolocation({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         });
       },
       () => {
-        setLocation({ latitude: null, longitude: null });
+        getDefaultCityWeather();
       },
     );
   }

@@ -7,7 +7,11 @@ import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import { Favorites, WeatherCards, WeatherIcon } from '../components';
 import { getWeather, getCityByGeolocation } from '../store/actions';
-import { checkIfCitySaved, createWeatherArr } from '../utils/utils';
+import {
+  checkIfCitySaved,
+  createWeatherArr,
+  getCurrentLocation,
+} from '../utils/utils';
 
 const defaultCity = {
   Version: 1,
@@ -40,7 +44,6 @@ const WeatherBlockComp = props => {
     getWeather,
     currentCity,
     fiveDaysWeather,
-    location,
     getCityByGeolocation,
   } = props;
   const favorites = JSON.parse(window.localStorage.getItem('cities')) || [];
@@ -48,19 +51,15 @@ const WeatherBlockComp = props => {
   const weatherArr = createWeatherArr(fiveDaysWeather);
   const [favorite, setFavorite] = useState(ifCitySaved);
 
+  const getDefaultCityWeather = () => getWeather(defaultCity);
+
   useEffect(() => {
     if (Object.keys(currentCity).length) {
       getWeather(currentCity);
       return;
     }
-    getWeather(defaultCity);
+    getCurrentLocation(getCityByGeolocation, getDefaultCityWeather);
   }, []);
-
-  useEffect(() => {
-    if (location.latitude && location.longitude) {
-      getCityByGeolocation(location);
-    }
-  }, [location]);
 
   useEffect(() => {
     setFavorite(checkIfCitySaved(favorites, currentCity.Key));
@@ -133,6 +132,5 @@ WeatherBlockComp.propTypes = {
   getWeather: PropTypes.func.isRequired,
   currentCity: PropTypes.object.isRequired,
   fiveDaysWeather: PropTypes.arrayOf(PropTypes.object).isRequired,
-  location: PropTypes.object.isRequired,
   getCityByGeolocation: PropTypes.func.isRequired,
 };
