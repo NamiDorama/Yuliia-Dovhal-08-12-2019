@@ -1,7 +1,7 @@
 import { request } from './restConfig';
 
 const BASE_URL = 'https://dataservice.accuweather.com';
-const API_KEY = 'xWB8K6ZlIV36i0F47cO3vdepKhJdQtHM';
+const API_KEY = 'ta7ZxTcUUDLJet2gTHpzoKkqe7EHwDR3';
 
 export const getAutocompleteFetch = params => {
   return request(
