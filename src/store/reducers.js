@@ -39,6 +39,6 @@ export const reducer = (state = initialState, action) => {
     case SET_ERROR:
       return { ...state, error: action.error };
     default:
-      return { ...state };
+      return state;
   }
 };

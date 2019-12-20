@@ -41,7 +41,6 @@ const FavoritesPagesComp = props => {
     const chosen = favorites.find(city => city.key === weatherKey);
     setCity({ LocalizedName: chosen.city, Key: chosen.key });
     push('/');
-    console.log('getWeatherByClick', chosen);
   };
 
   return (
